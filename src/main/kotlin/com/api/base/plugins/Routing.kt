@@ -13,6 +13,7 @@ fun Application.configureRouting() {
         get("/token") {
             call.respondText("abc123")
         }
+
         authenticate {
             get("/protected") {
                 call.respondText("Accessing protected API")
