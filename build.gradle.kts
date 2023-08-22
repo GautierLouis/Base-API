@@ -21,6 +21,9 @@ application {
 }
 
 ktor {
+    fatJar {
+        archiveFileName.set("kurly.me.jar")
+    }
     docker {
         jreVersion.set(io.ktor.plugin.features.JreVersion.JRE_17)
         localImageName.set("base-api-image")
@@ -53,7 +56,6 @@ dependencies {
     implementation("org.jetbrains.exposed:exposed-jdbc:$exposed_version")
     implementation("org.postgresql:postgresql:$postgresql_version")
     implementation("org.postgresql:postgresql:$postgresql_version")
-    implementation("org.xerial:sqlite-jdbc:3.30.1")
 
     implementation("io.ktor:ktor-server-core-jvm")
     implementation("io.ktor:ktor-server-auth-jvm")
