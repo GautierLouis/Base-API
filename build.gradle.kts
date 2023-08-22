@@ -21,8 +21,9 @@ application {
 
 ktor {
     docker {
-        localImageName.set("ktor-docker-sample")
-        imageTag.set("$version-preview")
+        jreVersion.set(io.ktor.plugin.features.JreVersion.JRE_17)
+        localImageName.set("base-api-image")
+        imageTag.set("$version")
         portMappings.set(listOf(
             io.ktor.plugin.features.DockerPortMapping(
                 80,
@@ -32,7 +33,7 @@ ktor {
         ))
         externalRegistry.set(
             io.ktor.plugin.features.DockerImageRegistry.dockerHub(
-                appName = provider { "ktor-app" },
+                appName = provider { "kurly.me" },
                 username = providers.environmentVariable("DOCKER_HUB_USERNAME"),
                 password = providers.environmentVariable("DOCKER_HUB_PASSWORD")
             )
