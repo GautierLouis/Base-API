@@ -6,6 +6,7 @@ val postgresql_version: String by project
 val hikaricp_version: String by project
 val ehcache_version: String by project
 val swagger_codegen_version: String by project
+val prometheus_version: String by project
 
 plugins {
     kotlin("jvm") version "1.9.0"
@@ -54,26 +55,34 @@ repositories {
 
 dependencies {
 
+    // Database
     implementation("org.jetbrains.exposed:exposed-core:$exposed_version")
     implementation("org.jetbrains.exposed:exposed-dao:$exposed_version")
     implementation("org.jetbrains.exposed:exposed-jdbc:$exposed_version")
     implementation("org.postgresql:postgresql:$postgresql_version")
-
     implementation("com.zaxxer:HikariCP:$hikaricp_version")
     implementation("org.ehcache:ehcache:$ehcache_version")
 
+    // Swagger + OpenAPI
     implementation("io.ktor:ktor-server-openapi:$ktor_version")
     implementation("io.swagger.codegen.v3:swagger-codegen-generators:$swagger_codegen_version")
     implementation("io.ktor:ktor-server-swagger:$ktor_version")
 
+    // Metrics
+    implementation("io.ktor:ktor-server-metrics-micrometer:$ktor_version")
+    implementation("io.micrometer:micrometer-registry-prometheus:$prometheus_version")
+
+    // Server
     implementation("io.ktor:ktor-server-core-jvm")
     implementation("io.ktor:ktor-server-auth-jvm")
     implementation("io.ktor:ktor-server-netty-jvm")
     implementation("ch.qos.logback:logback-classic:$logback_version")
 
+    // Response
     implementation("io.ktor:ktor-server-content-negotiation:$ktor_version")
     implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
 
+    // Test
     testImplementation("io.ktor:ktor-server-tests-jvm")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
 }

@@ -20,16 +20,16 @@ object DatabaseFactory {
         val username = config.property("ktor.database.user").getString()
         val password = config.property("ktor.database.password").getString()
         val defaultDatabase = config.property("ktor.database.database").getString()
-        val connectionPool = createHikariDataSource(
-            url = "$jdbcURL/$defaultDatabase?user=$username&password=$password",
-            driver = driverClassName,
-            maxPoolSize.toInt(),
-            autoCommit.toBoolean()
-        )
-        val database = Database.connect(connectionPool)
-        transaction(database) {
-            SchemaUtils.create(Articles)
-        }
+//        val connectionPool = createHikariDataSource(
+//            url = "$jdbcURL/$defaultDatabase?user=$username&password=$password",
+//            driver = driverClassName,
+//            maxPoolSize.toInt(),
+//            autoCommit.toBoolean()
+//        )
+//        val database = Database.connect(connectionPool)
+//        transaction(database) {
+//            SchemaUtils.create(Articles)
+//        }
     }
 
     private fun createHikariDataSource(
