@@ -27,3 +27,23 @@ services:
 #    healthcheck:
 #      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
 #      interval: 1s
+  prometheus:
+    image: prom/prometheus
+    restart: always
+    ports:
+      - "3580:9090"
+    volumes:
+      - ./monitoring:/etc/prometheus/
+    links:
+      - api
+
+  grafana:
+    image: grafana/grafana-oss:9.3.6
+    ports:
+      - "3000:3000"
+    user: "472"
+    volumes:
+      - ./monitoring/grafana:/var/lib/grafana
+    links:
+      - api
+      - prometheus
