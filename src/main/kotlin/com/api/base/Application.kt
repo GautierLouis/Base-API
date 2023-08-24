@@ -1,8 +1,7 @@
 package com.api.base
 
 import com.api.base.database.DatabaseFactory
-import com.api.base.plugins.configureRouting
-import com.api.base.plugins.configureSecurity
+import com.api.base.plugins.*
 import io.ktor.serialization.kotlinx.json.*
 import io.ktor.server.application.*
 import io.ktor.server.metrics.micrometer.*
@@ -25,30 +24,4 @@ fun Application.module() {
     configureSerialization()
     configureMetrics()
     configureDefaultHeader()
-}
-
-fun Application.configureSerialization() {
-    install(ContentNegotiation) {
-        json(Json {
-            prettyPrint = true
-            isLenient = true
-        })
-    }
-}
-
-fun Application.configureMetrics() {
-    val appMicrometerRegistry = PrometheusMeterRegistry(PrometheusConfig.DEFAULT)
-    install(MicrometerMetrics) {
-        registry = appMicrometerRegistry
-    }
-    routing {
-        get("/metrics") {
-            call.respond(appMicrometerRegistry.scrape())
-        }
-    }
-}
-
-fun Application.configureDefaultHeader() {
-    install(DefaultHeaders) {
-    }
 }
