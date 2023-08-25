@@ -39,4 +39,4 @@ out/
 /db-data/
 .env
 docs
-monitoring
+monitoring/grafana
