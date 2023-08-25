@@ -63,30 +63,25 @@ dependencies {
     implementation("com.zaxxer:HikariCP:$hikaricp_version")
     implementation("org.ehcache:ehcache:$ehcache_version")
 
-    // Swagger + OpenAPI
+    // Ktor
+    implementation("io.ktor:ktor-server-core:$ktor_version")
+    implementation("io.ktor:ktor-server-auth:$ktor_version")
+    implementation("io.ktor:ktor-server-netty:$ktor_version")
+    implementation("io.ktor:ktor-server-default-headers:$ktor_version")
+    implementation("ch.qos.logback:logback-classic:$logback_version")
+    implementation("io.ktor:ktor-server-content-negotiation:$ktor_version")
+    implementation("io.ktor:ktor-server-metrics-micrometer:$ktor_version")
     implementation("io.ktor:ktor-server-openapi:$ktor_version")
-    implementation("io.swagger.codegen.v3:swagger-codegen-generators:$swagger_codegen_version")
     implementation("io.ktor:ktor-server-swagger:$ktor_version")
 
-    // Metrics
-    implementation("io.ktor:ktor-server-metrics-micrometer:$ktor_version")
-    implementation("io.micrometer:micrometer-registry-prometheus:$prometheus_version")
-
-    // Header
-    implementation("io.ktor:ktor-server-default-headers:$ktor_version")
-
-    // Server
-    implementation("io.ktor:ktor-server-core-jvm")
-    implementation("io.ktor:ktor-server-auth-jvm")
-    implementation("io.ktor:ktor-server-netty-jvm")
-
-    // Logging
-    implementation("ch.qos.logback:logback-classic:$logback_version")
-
-    // Response
-    implementation("io.ktor:ktor-server-content-negotiation:$ktor_version")
+    // Serialization
     implementation("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
-    implementation("io.ktor:ktor-server-default-headers-jvm:2.3.3")
+
+    // Swagger Code gen - TODO Fix or remove
+    implementation("io.swagger.codegen.v3:swagger-codegen-generators:$swagger_codegen_version")
+
+    // Metrics
+    implementation("io.micrometer:micrometer-registry-prometheus:$prometheus_version")
 
     // Test
     testImplementation("io.ktor:ktor-server-tests-jvm")
