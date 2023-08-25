@@ -38,3 +38,5 @@ out/
 /tmp/
 /db-data/
 .env
+docs
+monitoring
