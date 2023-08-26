@@ -36,3 +36,7 @@ out/
 .vscode/
 
 /tmp/
+/db-data/
+.env
+docs
+monitoring/grafana

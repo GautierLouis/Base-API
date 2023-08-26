@@ -1,20 +1,53 @@
+version: '3.8'
+
 services:
   api:
     build: .
+    environment:
+      PORT: ${WEB_PORT}
+      JDBC_URL: ${WEB_DB_URL}
+      DATABASE: ${WEB_DATABASE}
+      DB_USERNAME: ${WEB_DB_USERNAME}
+      DB_PASSWORD: ${WEB_DB_PASSWORD}
     ports:
       - "8080:8080"
-    depends_on:
-      db:
-        condition: service_healthy
+#    depends_on:
+#      db:
+#        condition: service_healthy
+
   db:
-    image: postgres
+    image: postgres:latest
     volumes:
-      - ./tmp/db:/var/lib/postgresql/data
+      - data:/var/lib/postgresql/data
     environment:
-      POSTGRES_DB: ktorjournal
-      POSTGRES_HOST_AUTH_METHOD: trust
+      POSTGRES_DB: ${WEB_DATABASE}
+      POSTGRES_USER: ${WEB_DB_USERNAME}
+      POSTGRES_PASSWORD: ${WEB_DB_PASSWORD}
     ports:
-      - "54333:5432"
-    healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
-      interval: 1s
+      - "5432:5432"
+#    healthcheck:
+#      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+#      interval: 1s
+
+  prometheus:
+    image: prom/prometheus
+    restart: always
+    ports:
+      - "3580:9090"
+    volumes:
+      - ./monitoring:/etc/prometheus/
+    links:
+      - api
+
+  grafana:
+    image: grafana/grafana-oss:9.3.6
+    ports:
+      - "3000:3000"
+    user: "472"
+    volumes:
+      - ./monitoring/grafana:/var/lib/grafana
+    links:
+      - api
+      - prometheus
+volumes:
+  data:
