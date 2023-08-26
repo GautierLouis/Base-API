@@ -14,10 +14,11 @@ services:
 #    depends_on:
 #      db:
 #        condition: service_healthy
+
   db:
     image: postgres:latest
     volumes:
-      - ./tmp/db:/var/lib/postgresql/data
+      - data:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: ${WEB_DATABASE}
       POSTGRES_USER: ${WEB_DB_USERNAME}
@@ -27,6 +28,7 @@ services:
 #    healthcheck:
 #      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
 #      interval: 1s
+
   prometheus:
     image: prom/prometheus
     restart: always
@@ -47,3 +49,5 @@ services:
     links:
       - api
       - prometheus
+volumes:
+  data:
